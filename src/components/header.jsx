@@ -13,9 +13,9 @@ const Header = () => {
                             <ul
                                 tabIndex={0}
                                 className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
-                                <li><a>Homepage</a></li>
-                                <li><a>Settings</a></li>
-                                <li><a>Contact Us</a></li>
+                                <li><Link to="/" >Home</Link></li>
+                                <li> <Link to="/settings">Settings</Link> </li>
+                                <li> <Link to="/contact">Contact Us</Link> </li>
                             </ul>
                         </div>
                     </div>
