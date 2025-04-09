@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom"; // 👈 Step 1
 
 const AddNote = () => {
     const [notes, setNotes] = useState([]);
+    const navigate = useNavigate(); // 👈 Step 2
 
     useEffect(() => {
         const storedNotes = JSON.parse(localStorage.getItem("notes")) || [];
@@ -27,6 +29,8 @@ const AddNote = () => {
         e.target[1].value = "";
 
         alert("Note added successfully!");
+
+        navigate("/"); // 👈 Step 3: Redirect to homepage
     };
 
     return (
@@ -36,20 +40,20 @@ const AddNote = () => {
                 className="bg-white shadow-md rounded-lg p-6 w-full max-w-md space-y-4"
             >
                 <h2 className="text-2xl font-bold text-gray-800 text-center">Add New Note</h2>
-                
+
                 <input
                     type="text"
                     placeholder="Title"
                     className="text-gray-800 placeholder-gray-500 bg-white border border-gray-300 rounded px-4 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-400"
                     required
                 />
-                
+
                 <textarea
                     placeholder="Content"
                     className="text-gray-800 placeholder-gray-500 bg-white border border-gray-300 rounded px-4 py-2 w-full h-32 resize-none focus:outline-none focus:ring-2 focus:ring-blue-400"
                     required
                 ></textarea>
-                
+
                 <button
                     type="submit"
                     className="bg-blue-500 text-white font-medium py-2 px-4 rounded w-full hover:bg-blue-600 transition"
