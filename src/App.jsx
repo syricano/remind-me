@@ -7,6 +7,7 @@ import ViewNotes from './components/viewNotes';
 import SearchNotes from './components/searchNotes';
 import ContactUs from './components/contactUs';
 import Settings from './components/settings';
+import EditNotes from './components/editNotes';
 import Footer from './components/footer';
 
 
@@ -21,6 +22,7 @@ const App = () => {
         {/* Add other routes here */}
         <Route path="/add" element={<AddNote />} />
         <Route path="/view" element={<ViewNotes />} />
+        <Route path="/edit/:id" element={<EditNotes />} /> {/* Edit note route */}
         <Route path="/search" element={<SearchNotes />} />
         <Route path="/contact" element={<ContactUs />} />
         <Route path="/settings" element={<Settings />} />

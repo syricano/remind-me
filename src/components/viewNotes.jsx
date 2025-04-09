@@ -1,13 +1,23 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-const ViewNotes = () => {
+const SearchNotes = () => {
+  const [searchTerm, setSearchTerm] = useState("");
   const [notes, setNotes] = useState([]);
+  const [filteredNotes, setFilteredNotes] = useState([]);
 
   useEffect(() => {
     const savedNotes = JSON.parse(localStorage.getItem("notes")) || [];
     setNotes(savedNotes);
   }, []);
+
+  useEffect(() => {
+    const results = notes.filter((note) =>
+      note.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      note.content.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    setFilteredNotes(results);
+  }, [searchTerm, notes]);
 
   const handleDeleteNote = (index) => {
     const updatedNotes = notes.filter((_, i) => i !== index); // Filter out the note to delete
@@ -16,39 +26,50 @@ const ViewNotes = () => {
   };
 
   return (
-    <div className="p-4 bg-gray-100 min-h-screen">
-      <h2 className="text-2xl font-bold text-center mb-6 text-gray-800">All Notes</h2>
-      {notes.length === 0 ? (
-        <p className="text-center text-gray-500">No notes available.</p>
+    <div className="p-6 bg-white min-h-screen">
+      <h1 className="text-2xl text-black font-bold mb-4">Search Notes</h1>
+
+      {/* 🔍 Search Bar */}
+      <input
+        type="text"
+        placeholder="Search by title or content..."
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+        className="w-full mt-4 bg-white text-black px-4 py-2 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500"
+      />
+
+      {/* 📝 Notes List */}
+      {filteredNotes.length === 0 ? (
+        <p className="text-center text-gray-500 mt-4">No matching notes found.</p>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {notes.map((note, index) => (
-            <div
-              key={index}
-              className="bg-white border-l-4 border-blue-500 p-4 shadow-md rounded-lg transition duration-200 hover:shadow-lg"
-            >
-              <h3 className="text-xl font-semibold text-blue-700 mb-2">{note.title}</h3>
-              <p className="text-gray-700">{note.content}</p>
-              {/* Edit button */}
+        filteredNotes.map((note, index) => (
+          <div
+            key={index}
+            className="bg-white text-black p-4 mt-4 border-l-4 border-blue-500 shadow-md rounded hover:bg-gray-100 hover:shadow-lg transition duration-300"
+          >
+            <h3 className="text-lg font-semibold">{note.title}</h3>
+            <p className="text-gray-700">{note.content}</p>
+
+            {/* Edit and Delete Buttons */}
+            <div className="mt-4 flex justify-end gap-4">
               <Link
-                to={`/edit/${index}`} // Navigate to the EditNote page with the note ID (index)
-                className="mt-4 inline-block text-blue-500 hover:text-blue-700 mr-4"
+                to={`/edit/${index}`} // Navigate to the Edit page with the note index
+                className="text-blue-500 hover:text-blue-700"
               >
                 Edit
               </Link>
-              {/* Delete button */}
               <button
                 onClick={() => handleDeleteNote(index)} // Call handleDeleteNote on click
-                className="mt-4 inline-block text-red-500 hover:text-red-700"
+                className="text-red-500 hover:text-red-700"
               >
                 Delete
               </button>
             </div>
-          ))}
-        </div>
+          </div>
+        ))
       )}
     </div>
   );
 };
 
-export default ViewNotes;
+export default SearchNotes;
