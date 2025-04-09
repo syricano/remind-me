@@ -2,28 +2,36 @@ import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
 const EditNote = () => {
-    const { id } = useParams();
+    const { id } = useParams(); // Get the note ID from the URL
     const navigate = useNavigate();
     const [notes, setNotes] = useState([]);
     const [note, setNote] = useState({ title: "", content: "" });
 
+    // Fetch the notes from localStorage when the component mounts
     useEffect(() => {
         const storedNotes = JSON.parse(localStorage.getItem("notes")) || [];
         setNotes(storedNotes);
-        setNote(storedNotes[id] || { title: "", content: "" });
-    }, [id]);
+
+        // Check if the note with the given ID exists
+        if (id && storedNotes[id]) {
+            setNote(storedNotes[id]); // Load the note to edit
+        } else {
+            alert("Note not found.");
+            navigate("/view"); // Redirect back to the view page if not found
+        }
+    }, [id, navigate]);
 
     const handleUpdateNote = (e) => {
         e.preventDefault();
 
         const updatedNotes = [...notes];
-        updatedNotes[id] = note;
+        updatedNotes[id] = note; // Update the note at the correct index
 
         setNotes(updatedNotes);
-        localStorage.setItem("notes", JSON.stringify(updatedNotes));
+        localStorage.setItem("notes", JSON.stringify(updatedNotes)); // Save the updated notes
 
         alert("Note updated successfully!");
-        navigate("/view"); // رجوع لصفحة عرض الملاحظات
+        navigate("/view"); // Return to the note view page
     };
 
     return (

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom"; // Import Link from react-router-dom
 
 const ViewNotes = () => {
   const [notes, setNotes] = useState([]);
@@ -16,14 +17,24 @@ const ViewNotes = () => {
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {notes.map((note, index) => (
-            <div key={index} className="bg-white border-l-4 border-blue-500 p-4 shadow-md rounded-lg transition duration-200 hover:shadow-lg">
+            <div
+              key={index}
+              className="bg-white border-l-4 border-blue-500 p-4 shadow-md rounded-lg transition duration-200 hover:shadow-lg"
+            >
               <h3 className="text-xl font-semibold text-blue-700 mb-2">{note.title}</h3>
               <p className="text-gray-700">{note.content}</p>
+              {/* Edit button below the note */}
+              <Link
+                to={`/edit/${index}`} // Navigate to the EditNote page with the note ID (index)
+                className="mt-4 inline-block text-blue-500 hover:text-blue-700"
+              >
+                Edit
+              </Link>
             </div>
           ))}
         </div>
       )}
-    </div>      
+    </div>
   );
 };
 
