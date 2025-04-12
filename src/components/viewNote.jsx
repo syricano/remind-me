@@ -2,13 +2,16 @@ import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 
 const ViewNote = () => {
-  const { index } = useParams(); // Get the index from the URL
+  const {index  } = useParams(); // Get the index from the URL
   const [note, setNote] = useState(null);
 
   useEffect(() => {
+
     const savedNotes = JSON.parse(localStorage.getItem("notes")) || [];
-    if (savedNotes[index]) {
-      setNote(savedNotes[index]); // Load the note to display based on index
+    const noteIndex = parseInt(index, 10);
+
+    if (!isNaN(noteIndex) && savedNotes[noteIndex]) {
+      setNote(savedNotes[noteIndex]);
     }
   }, [index]);
 
@@ -32,10 +35,15 @@ const ViewNote = () => {
         {/* Note Content */}
         <p className="text-gray-700 mt-4">{note.content}</p>
 
+        {/* Display image if exists */}
+        {note.image && (
+          <img src={note.image} alt="Note" className="w-full h-32 object-cover rounded mt-4" />
+        )}
+
         {/* Edit and Delete Buttons */}
         <div className="mt-6 flex justify-end gap-4">
           <Link
-            to={`/edit/${index}`} // Navigate to the Edit page with the note index
+            to={`/view`} // Navigate to the Edit page with the note index
             className="text-blue-500 hover:text-blue-700"
           >
             Edit

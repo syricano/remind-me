@@ -16,7 +16,7 @@ const ViewNotes = () => {
   };
 
   return (
-    <div className="p-4 bg-gray-100 min-h-screen">
+    <div className="p-6 bg-white min-h-screen">
       <h2 className="text-2xl font-bold text-center mb-6 text-gray-800">All Notes</h2>
       {notes.length === 0 ? (
         <p className="text-center text-gray-500">No notes available.</p>
@@ -30,11 +30,17 @@ const ViewNotes = () => {
               {/* Title as a Link to ViewNote */}
               <Link
                 to={`/view/${index}`} // Navigate to the ViewNote page with the note ID (index)
-                className="text-xl font-semibold text-blue-700 mb-2 block hover:underline"
+                className="card-title text-xl font-semibold text-gray-800 hover:text-blue-600"
               >
                 {note.title}
               </Link>
               <p className="text-gray-700">{note.content}</p>
+              
+              {/* Display the image if exists */}
+              {note.image && (
+                <img src={note.image} alt="Note" className="w-full h-32 object-cover rounded mt-4" />
+              )}
+
               {/* Edit button */}
               <Link
                 to={`/edit/${index}`} // Navigate to the EditNote page with the note ID (index)
@@ -54,7 +60,6 @@ const ViewNotes = () => {
         </div>
       )}
     </div>
-    
   );
 };
 
