@@ -28,16 +28,16 @@ const ViewNote = () => {
       <h1 className="text-2xl text-black font-bold mb-4">View Note</h1>
 
       {/* 📝 Note Card */}
-      <div className="bg-white text-black p-6 mt-4 border border-gray-300 rounded-lg shadow-md hover:shadow-lg transition duration-300">
+      <div className="bg-white text-black p-6 mt-4 border border-gray-300 rounded-lg shadow-md hover:shadow-lg transition duration-300 line-clamp-2">
         {/* Note Title */}
         <h2 className="text-xl font-semibold text-gray-800">{note.title}</h2>
 
         {/* Note Content */}
-        <p className="text-gray-700 mt-4">{note.content}</p>
+        <p className="text-gray-700 mt-4 line-clamp-2">{note.content}</p>
 
         {/* Display image if exists */}
         {note.image && (
-          <img src={note.image} alt="Note" className="w-full h-32 object-cover rounded mt-4" />
+          <img src={note.image} alt="Note" className=" h-32 object-cover rounded mt-4" />
         )}
 
         {/* Edit and Delete Buttons */}

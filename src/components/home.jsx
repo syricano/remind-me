@@ -12,14 +12,14 @@ const Home = () => {
     setNotes(savedNotes);
   }, []);
 
-  const handleDeleteNote = (id) => {
-    const updatedNotes = notes.filter(note => note.id !== id);
+  const addNote = (newNote) => {
+    const updatedNotes = [...notes, newNote];
     setNotes(updatedNotes);
     localStorage.setItem("notes", JSON.stringify(updatedNotes));
   };
 
-  const addNote = (newNote) => {
-    const updatedNotes = [...notes, newNote];
+  const handleDeleteNote = (id) => {
+    const updatedNotes = notes.filter(note => (note.id !== id));
     setNotes(updatedNotes);
     localStorage.setItem("notes", JSON.stringify(updatedNotes));
   };
@@ -54,7 +54,7 @@ const Home = () => {
       </div>
 
       <h2 className="text-2xl font-bold text-center mt-8 mb-4 text-gray-900">Stored Notes</h2>
-      <div className="w-full max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      <div className="w-full max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 line-clamp-2">
         {notes.length === 0 ? (
           <p className="text-center text-gray-500">No notes available.</p>
         ) : (
@@ -69,7 +69,7 @@ const Home = () => {
               >
                 {note.title}
               </Link>
-              <p className="text-gray-700">{note.content}</p>
+              <p className="text-gray-700 line-clamp-2">{note.content}</p>
               <p className="text-gray-500 text-sm">{note.date}</p>
 
               {note.image && (

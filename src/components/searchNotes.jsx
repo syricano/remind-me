@@ -38,7 +38,10 @@ const SearchNotes = () => {
         filteredNotes.map((note, index) => (
           <div key={index} className="bg-white p-4 mt-4 border-l-4 border-blue-500 shadow rounded">
             <h3 className="text-lg font-semibold text-black">{note.title}</h3>
-            <p className="text-gray-700">{note.content}</p>
+            <p className="text-gray-700 line-clamp-2">{note.content}</p>
+            {note.image && (
+              <img src={note.image} alt="Note" className="h-32 object-cover rounded mt-4" />
+            )}
           </div>
         ))
       )}

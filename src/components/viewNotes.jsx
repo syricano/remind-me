@@ -34,11 +34,11 @@ const ViewNotes = () => {
               >
                 {note.title}
               </Link>
-              <p className="text-gray-700">{note.content}</p>
+              <p className="text-gray-700 line-clamp-2">{note.content}</p>
               
               {/* Display the image if exists */}
               {note.image && (
-                <img src={note.image} alt="Note" className="w-full h-32 object-cover rounded mt-4" />
+                <img src={note.image} alt="Note" className=" h-32 object-cover rounded mt-4" />
               )}
 
               {/* Edit button */}
